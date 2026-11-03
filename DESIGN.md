@@ -75,3 +75,7 @@ My Profile (/profile) uses two stacked themed forms for display name and passwor
 
 Account changes: omit all password-recovery links/screens; users can change passwords from authenticated My Profile with their current password. Sign Out and Delete Food use a red danger treatment in light and dark modes. My Foods deletion requires explicit confirmation naming the food and explaining that its QR link stops resolving; cancellation preserves the item. Show pending/error feedback and remove the card only after confirmed server success.
 
+
+
+## Phone and tablet layout refinement
+Below 900px, the sticky header uses two grid rows: brand/account/theme first and the main navigation second, preventing a tall three-row header. Long account names truncate in the trigger while the menu remains readable; mobile popovers stay inside viewport gutters. Auth forms stack below 900px; details and QR stack below 1050px; the hero stacks below 800px. Preserve the desktop composition above these ranges. Tablet lists keep two food columns where space allows, while phone card actions fill the available width. Phone input text is 16px to avoid iOS focus zoom, and password toggles have 44px touch height. Keep QR aspect ratio, responsive illustration aspect ratio, both themes, and screen-only responsive rules so print labels stay unchanged.

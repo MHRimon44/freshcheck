@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { LogOut, UserRound } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Brand from "./Brand";
 import ThemeToggle from "./ThemeToggle";
@@ -21,6 +22,6 @@ export default function Navbar() {
       {loading ? <span className="nav-session" role="status">Loading account…</span> : user ? <>
         <NavLink to="/my-foods">My Foods</NavLink><NavLink to="/add-food" className="nav-add">+ Add Food</NavLink>
       </> : <><NavLink to="/sign-in">Sign In</NavLink><NavLink to="/sign-up" className="nav-add">Create Account</NavLink></>}
-    </nav><div className="utility-actions">{!loading && user && <details className="account-menu"><summary>{displayName || user.email || "My account"}</summary><div className="account-popover"><p>{displayName || "My account"}</p><Link className="button secondary-button full-button" to="/profile" onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}>My Profile</Link><button className="button danger-button full-button" disabled={busy} onClick={leave}>{busy ? "Signing out…" : "Sign Out"}</button>{error && <p role="alert" className="error-message">{error}</p>}</div></details>}<ThemeToggle/></div></div>
+    </nav><div className="utility-actions">{!loading && user && <details className="account-menu"><summary>{displayName || user.email || "My account"}</summary><div className="account-popover"><p>{displayName || "My account"}</p><Link className="button secondary-button full-button" to="/profile" onClick={event => event.currentTarget.closest("details")?.removeAttribute("open")}><UserRound className="account-action-icon" size={17} aria-hidden="true"/>My Profile</Link><button className="button danger-button full-button" disabled={busy} onClick={leave}><LogOut className="account-action-icon" size={17} aria-hidden="true"/>{busy ? "Signing out…" : "Sign Out"}</button>{error && <p role="alert" className="error-message">{error}</p>}</div></details>}<ThemeToggle/></div></div>
   </div></header>;
 }

@@ -1,3 +1,4 @@
+import PasswordInput from "../components/PasswordInput";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -33,8 +34,8 @@ export default function AuthPage({ mode }: { mode: Mode }) {
       <h2>{text.action}</h2>
       {mode === "sign-up" && <div className="form-group"><label htmlFor="auth-name">Name</label><input id="auth-name" name="name" autoComplete="name" required maxLength={100} placeholder="Your name"/></div>}
       <div className="form-group"><label htmlFor="auth-email">Email</label><input id="auth-email" name="email" type="email" autoComplete="email" required maxLength={254} placeholder="you@example.com"/></div>
-      <div className="form-group"><label htmlFor="auth-password">Password</label><input id="auth-password" name="password" type="password" autoComplete={mode === "sign-up" ? "new-password" : "current-password"} required minLength={mode === "sign-up" ? 8 : undefined} maxLength={mode === "sign-up" ? 128 : undefined} aria-describedby={mode === "sign-up" ? "password-help" : undefined}/>{mode === "sign-up" && <small id="password-help">Use 8–128 characters. A long, unique passphrase works well.</small>}</div>
-      {mode === "sign-up" && <div className="form-group"><label htmlFor="auth-confirm">Confirm Password</label><input id="auth-confirm" name="confirmPassword" type="password" autoComplete="new-password" required minLength={8} maxLength={128}/></div>}
+      <div className="form-group"><label htmlFor="auth-password">Password</label><PasswordInput id="auth-password" name="password" autoComplete={mode === "sign-up" ? "new-password" : "current-password"} required minLength={mode === "sign-up" ? 8 : undefined} maxLength={mode === "sign-up" ? 128 : undefined} aria-describedby={mode === "sign-up" ? "password-help" : undefined}/>{mode === "sign-up" && <small id="password-help">Use 8–128 characters. A long, unique passphrase works well.</small>}</div>
+      {mode === "sign-up" && <div className="form-group"><label htmlFor="auth-confirm">Confirm Password</label><PasswordInput id="auth-confirm" name="confirmPassword" autoComplete="new-password" required minLength={8} maxLength={128}/></div>}
       {error && <p className="error-message" role="alert">{error}</p>}
       <button className="button primary-button full-button" disabled={busy}>{busy ? "Please wait…" : text.action}</button>
     </fieldset></form>}

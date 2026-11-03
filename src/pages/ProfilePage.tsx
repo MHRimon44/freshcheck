@@ -1,3 +1,4 @@
+import PasswordInput from "../components/PasswordInput";
 import { useState } from "react";
 import type { FormEvent } from "react";
 import { useAuth } from "../hooks/useAuth";
@@ -49,9 +50,9 @@ function ProfileSettings() {
     <form className="food-form profile-form" onSubmit={savePassword} aria-busy={busy === "password"}><fieldset disabled={busy !== null}>
       <h2>Change password</h2><p>Confirm your current password to secure this change.</p>
       <input name="username" type="hidden" autoComplete="username" value={user?.email || ""} readOnly />
-      <div className="form-group"><label htmlFor="current-password">Current password</label><input id="current-password" name="currentPassword" type="password" autoComplete="current-password" required /></div>
-      <div className="form-group"><label htmlFor="new-password">New password</label><input id="new-password" name="newPassword" type="password" autoComplete="new-password" required minLength={8} maxLength={128} aria-describedby="new-password-help"/><small id="new-password-help">Use 8–128 characters. Choose a long, unique passphrase.</small></div>
-      <div className="form-group"><label htmlFor="confirm-password">Confirm new password</label><input id="confirm-password" name="confirmation" type="password" autoComplete="new-password" required minLength={8} maxLength={128}/></div>
+      <div className="form-group"><label htmlFor="current-password">Current password</label><PasswordInput id="current-password" name="currentPassword" autoComplete="current-password" required /></div>
+      <div className="form-group"><label htmlFor="new-password">New password</label><PasswordInput id="new-password" name="newPassword" autoComplete="new-password" required minLength={8} maxLength={128} aria-describedby="new-password-help"/><small id="new-password-help">Use 8–128 characters. Choose a long, unique passphrase.</small></div>
+      <div className="form-group"><label htmlFor="confirm-password">Confirm new password</label><PasswordInput id="confirm-password" name="confirmation" autoComplete="new-password" required minLength={8} maxLength={128}/></div>
       {passwordError && <p role="alert" className="error-message">{passwordError}</p>}{passwordSuccess && <p role="status" className="auth-success">{passwordSuccess}</p>}
       <button className="button primary-button" disabled={busy !== null}>{busy === "password" ? "Updating…" : "Change Password"}</button>
     </fieldset></form>

@@ -165,3 +165,7 @@ My Foods is scoped to the creator’s UID using a Firestore equality query. Publ
 ## Latest change summary
 
 See [FRESHCHECK_CHANGES_SINCE_LAST_REPORT.txt](FRESHCHECK_CHANGES_SINCE_LAST_REPORT.txt) for a short continuation report. The longer implementation report includes historical sections; its current follow-up notes and the source code take precedence over descriptions of features subsequently removed.
+
+
+## Phone and tablet layout
+The sticky header uses a compact two-row layout on smaller screens, with bounded account menus. Authentication forms, food details and QR panels stack at tablet breakpoints; phone cards use full-width actions and form controls have comfortable touch targets. Inputs use 16px text on phones to avoid iOS focus zoom. The desktop design, themes, QR links and print labels are preserved.

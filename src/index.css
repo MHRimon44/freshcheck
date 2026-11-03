@@ -1173,3 +1173,120 @@ footer p {
 [data-theme="dark"] .danger-button { color: #ffb9b7; border-color: #784343; background: #422629; }
 [data-theme="dark"] .danger-button:hover { color: #fff; background: #a83238; border-color: #a83238; }
 
+
+.password-input { position: relative; margin-top: 8px; }
+.password-input input { margin-top: 0; padding-right: 54px; }
+.password-toggle { position: absolute; inset-inline-end: 3px; top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 40px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: var(--ink); font-size: 19px; }
+.password-toggle:hover { background: var(--surface); }
+.password-toggle:focus-visible { outline-offset: -3px; }
+
+/* Phone and tablet refinements; desktop composition stays unchanged. */
+@media screen and (max-width: 1050px) {
+  .hero-content { gap: 28px; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); }
+  .hero h1 { font-size: clamp(40px, 5.4vw, 56px); letter-spacing: -2px; }
+  .auth-layout { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 32px; }
+  .details-container { grid-template-columns: minmax(0, 1fr); }
+  .qr-card { width: 100%; max-width: 420px; justify-self: center; }
+  .food-card-actions .button { flex: 1 1 150px; }
+}
+@media screen and (max-width: 900px) {
+  .nav-content { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 16px; padding-block: 10px; min-height: 0; }
+  .nav-actions { display: contents; }
+  .nav-actions nav { grid-column: 1 / -1; grid-row: 2; display: flex; flex-wrap: nowrap; justify-content: space-between; gap: 12px; width: 100%; font-size: 14px; }
+  .nav-actions nav a { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; white-space: nowrap; }
+  .utility-actions { grid-column: 2; grid-row: 1; justify-self: end; min-width: 0; gap: 8px; }
+  .navbar .brand { font-size: 22px; }
+  .account-menu { min-width: 0; max-width: clamp(64px, calc(100vw - 270px), 160px); }
+  .account-menu summary { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .account-popover { position: absolute; left: auto; right: 0; top: calc(100% + 8px); width: min(280px, calc(100vw - 32px)); margin-top: 0; max-height: 60dvh; overflow-y: auto; }
+  .auth-layout { grid-template-columns: minmax(0, 1fr); max-width: 640px; gap: 24px; }
+  .auth-intro { padding-top: 0; }
+  .auth-intro .eyebrow { margin-top: 20px; }
+  .auth-public-note { margin-top: 16px; }
+  .list-tools { flex-wrap: wrap; gap: 16px; }
+  .list-tools label:first-child { flex: 1 1 100%; }
+  .list-tools label:nth-child(2) { flex: 1; width: auto; min-width: 0; }
+  .how-section, .page-section { padding-block: 44px; }
+}
+@media screen and (max-width: 800px) {
+  .hero-content { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero-copy > p:not(.eyebrow) { max-width: 600px; }
+  .hero-visual { width: 100%; max-width: 540px; justify-self: center; }
+  .hero-visual img { height: auto; aspect-ratio: 600 / 460; object-fit: contain; }
+  .steps { gap: 20px; }
+}
+@media screen and (max-width: 600px) {
+  input, textarea, select { font-size: 16px; } /* Avoid iOS zoom on field focus. */
+  .navbar .brand { font-size: 20px; gap: 7px; }
+  .nav-content { gap: 6px 10px; }
+  .nav-actions nav { font-size: 13px; gap: 8px; }
+  .nav-actions nav .nav-add { padding-inline: 12px; }
+  .nav-session { white-space: normal; text-align: right; }
+  .hero { padding-block: 32px; }
+  .hero h1 { font-size: clamp(38px, 9.5vw, 52px); letter-spacing: -1.7px; }
+  .hero-copy > p:not(.eyebrow) { font-size: 16px; }
+  .hero-actions { gap: 10px; flex-wrap: wrap; flex-direction: row; }
+  .hero-actions .button { flex: 1 1 120px; }
+  .visual-caption { padding: 16px; gap: 10px; }
+  .benefits { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding-block: 20px; }
+  .benefits > div { font-size: 14px; gap: 12px; }
+  .page-section, .how-section { padding-block: 32px; }
+  .page-back { padding-top: 12px; }
+  .page-back + .page-section { padding-top: 16px; }
+  .section-heading { margin-bottom: 24px; }
+  .food-form, .food-card, .details-card, .qr-card, .message-card { padding: 20px; }
+  .form-group { margin-bottom: 20px; }
+  .password-toggle { height: 44px; }
+  .profile-form .button, .message-card .button { width: 100%; }
+  .food-card-actions { gap: 10px; }
+  .food-card-actions .button { flex-basis: 100%; }
+  .details-header { gap: 12px; }
+  .details-header h1 { margin-block: 8px; }
+  .result-message { margin-block: 20px; padding: 14px; }
+  .auth-form h2 { margin-bottom: 22px; }
+  .auth-public-note { font-size: 13px; }
+  .closing { padding-block: 36px; }
+  footer { padding-block: 24px; }
+}
+@media screen and (max-width: 360px) {
+  .food-form, .food-card, .details-card, .qr-card { padding: 16px; }
+  .list-tools { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .list-tools label:nth-child(2) { width: 100%; }
+  .hero-actions { flex-direction: column; }
+  .hero-actions .button { flex-basis: auto; width: 100%; }
+}
+@media screen and (max-width: 600px) {
+  .account-popover { position: fixed; left: 16px; right: 16px; top: auto; width: auto; margin-top: 8px; }
+}
+
+.account-action-icon { display: none; }
+@media screen {
+  .account-menu .account-popover {
+    position: absolute;
+    inset-inline-start: auto;
+    inset-inline-end: 0;
+    top: calc(100% + 6px);
+    width: min(200px, calc(100vw - 88px));
+    margin: 0;
+    padding: 6px;
+    border-radius: 12px;
+    box-shadow: 0 10px 28px #0002;
+  }
+  .account-popover > p:not([role="alert"]) { display: none; }
+  .account-popover > .button {
+    justify-content: flex-start;
+    gap: 10px;
+    min-height: 44px;
+    padding: 10px 12px;
+    font-size: 13px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+  }
+  .account-popover > .button + .button { margin-top: 2px; }
+  .account-popover > .secondary-button:hover { background: var(--surface); }
+  .account-popover > .danger-button:hover { background: #fff0ef; color: #a4262c; }
+  [data-theme="dark"] .account-popover > .danger-button:hover { background: #422629; color: #ffb9b7; }
+  .account-popover .account-action-icon { display: block; }
+  .account-popover .error-message { margin: 6px 0 0; padding: 10px; font-size: 12px; }
+}
