@@ -90,3 +90,6 @@ On the deployed HTTPS origin, sign in and add Grapes, Cut Carrots and Boiled Egg
 
 ## Verification and limits
 Build, lint, deterministic freshness tests and Chrome fixture-based responsive checks are documented in `FRESHCHECK_IMPLEMENTATION_REPORT.txt`. Browser fixture tests do not prove live Firebase authentication, creation, rules enforcement, real QR optical readability or physical printing. Those require the configured organizer account, deployed rules, and actual phones/printer. No production records were written during testing. Firebase shared code still triggers Vite's 500kB chunk advisory; homepage initial JS is split from data pages.
+
+## Theme and navigation
+Use the sun/moon button in the header to switch themes. FreshCheck starts with your device theme and remembers an explicit choice in browser storage. QR codes and printed labels stay white for scanning. On pages other than the landing page, the Back button sits at the left above the page content. It returns to the previous page within the current app history; direct QR entries fall back to Home.

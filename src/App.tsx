@@ -6,6 +6,7 @@ import Brand from "./components/Brand";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import BackButton from "./components/BackButton";
 
 import HomePage from "./pages/HomePage";
 const AddFoodPage = lazy(() => import("./pages/AddFoodPage"));
@@ -23,6 +24,7 @@ function App() {
       <a className="skip-link" href="#main">Skip to content</a><Navbar /><RouteFocus />
 
       <main id="main" tabIndex={-1}>
+        <BackButton />
         <Suspense fallback={<div className="page-section container" role="status">Opening FreshCheck…</div>}><Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/add-food" element={<AddFoodPage />} />

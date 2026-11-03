@@ -46,3 +46,14 @@ Use semantic header/nav/main/footer, native form controls, associated labels, vi
 
 ## Do / don't
 Do use calm green, warm neutrals, editorial spacing, clear actions, and factual date guidance. Do use local assets. Do expose useful loading, empty and error states. Don't use excessive gradients, fake fixed food statuses, AI predictions, NFC, enormous shadows, remote branding assets, or claims of guaranteed food safety.
+
+## Dark mode and back navigation
+The navbar theme button switches between light and dark, with an accessible action label. On first load use the device color scheme; an explicit choice persists under `freshcheck-theme` in localStorage. Apply the preference before paint in index.html to avoid a light flash. If storage is blocked, the toggle still works for the current page. Dark tokens: canvas #111c16, panel #1a2a20, surface #203226, text #edf4e9, muted #b4c5b7, border #3c5140, action #a8d981 with dark action text. Status text/background pairs are adapted for contrast. QR canvas backgrounds and printed labels stay white. Theme and Back buttons have 44px touch targets. Back sits at the left above page content, with an arrow and visible label, and is hidden on the landing route (/). Back uses React Router history when available; direct entries fall back to Home.
+
+
+## Refined theme gradients
+Light mode uses a warm ivory-to-sage page and a pale botanical hero gradient. Dark mode uses deep teal (#0b1716), emerald surfaces (#142724 / #18332c), soft mint actions (#8ee0b5), and muted sage text (#adc8bd). Broad radial glows blend into gentle diagonal gradients on page/hero backgrounds; section bands and content surfaces use restrained linear gradients. Primary actions use forest-to-emerald in light mode and mint-to-lime in dark mode. Gradient rules apply only to screens: QR panels retain solid backgrounds and printing retains white paper. Avoid animated gradients or applying them to body text, inputs, and QR canvases.
+
+Header and hero share the page-level gradient in both themes. Keep their backgrounds transparent and omit the header divider so the top of each page forms one continuous surface. The shared gradient is anchored to the viewport; do not restart a separate gradient at the hero boundary.
+
+The navbar is sticky at top: 0 with z-index: 50. It paints the same viewport-anchored page gradient to blend with the page while preventing scrolled content from showing through navigation.

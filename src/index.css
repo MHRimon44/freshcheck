@@ -7,9 +7,12 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  color: #19392b;
-  background: #fbfcf8;
+  color: var(--ink);
+  background: var(--canvas);
   font-synthesis: none;
+  color-scheme: light;
+  --canvas: #fbfcf8;
+  --panel: #ffffff;
   --forest: #155b36;
   --lime: #bde16b;
   --ink: #19392b;
@@ -97,8 +100,11 @@ main:focus {
   max-width: 720px;
 }
 .navbar {
-  background: #fbfcf8;
-  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: transparent;
+  border-bottom: 0;
 }
 .nav-content {
   min-height: 88px;
@@ -128,7 +134,7 @@ main:focus {
   position: absolute;
   bottom: -3px;
   right: -3px;
-  background: #fbfcf8;
+  background: var(--canvas);
   border-radius: 50%;
 }
 nav {
@@ -258,7 +264,7 @@ nav .nav-add {
   margin-top: 5px;
 }
 .benefit-band {
-  background: #edf2e6;
+  background: var(--surface);
   border-block: 1px solid var(--line);
 }
 .benefits {
@@ -318,7 +324,7 @@ nav .nav-add {
   font-size: 14px;
 }
 .status-section {
-  background: #f0f4e9;
+  background: var(--surface);
   padding-block: 56px;
 }
 .storage-note {
@@ -366,7 +372,7 @@ nav .nav-add {
 .details-card,
 .qr-card,
 .message-card {
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 30px;
@@ -389,7 +395,7 @@ select {
   padding: 12px;
   border: 1px solid #bccbb8;
   border-radius: 7px;
-  background: #fff;
+  background: var(--panel);
   color: var(--ink);
   margin-top: 8px;
 }
@@ -417,7 +423,7 @@ fieldset {
 }
 .access-panel {
   padding: 20px;
-  background: #edf2e6;
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 10px;
   margin-bottom: 24px;
@@ -456,7 +462,7 @@ fieldset {
 }
 .food-card {
   padding: 25px;
-  background: white;
+  background: var(--panel);
   border: 1px solid var(--line);
   border-radius: 12px;
 }
@@ -477,7 +483,7 @@ fieldset {
   font-size: 14px;
 }
 .details-background {
-  background: #f0f4e9;
+  background: var(--surface);
 }
 .details-container {
   display: grid;
@@ -498,7 +504,7 @@ fieldset {
 .result-message {
   border-left: 3px solid var(--forest);
   padding: 14px 18px;
-  background: #f0f4e9;
+  background: var(--surface);
   margin: 24px 0;
 }
 .result-message p {
@@ -555,7 +561,7 @@ fieldset {
   letter-spacing: -0.02em;
 }
 .qr-wrapper {
-  background: white;
+  background: var(--panel);
   width: 100%;
   max-width: 240px;
   margin-inline: auto;
@@ -608,7 +614,7 @@ footer p {
   position: absolute;
   top: -100px;
   left: 16px;
-  background: white;
+  background: var(--panel);
   padding: 14px;
   z-index: 100;
 }
@@ -750,7 +756,7 @@ footer p {
     margin: 12mm;
   }
   body {
-    background: #fff;
+    background: var(--panel);
     min-width: 0;
   }
   .navbar,
@@ -794,4 +800,79 @@ footer p {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Shared navigation controls */
+.nav-actions, .utility-actions { display: flex; align-items: center; gap: 18px; }
+.utility-actions { gap: 8px; }
+.utility-button { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 44px; padding: 10px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; font-size: 13px; font-weight: 650; }
+.utility-button:hover { background: var(--surface); }
+/* QR contrast must remain independent of the selected theme. */
+.qr-wrapper { background: #fff; }
+:root[data-theme="dark"] { color-scheme: dark; --canvas: #0b1716; --panel: #142724; --surface: #18332c; --ink: #edf8f2; --muted: #adc8bd; --line: #2c4c42; --forest: #8ee0b5; }
+[data-theme="dark"] .primary-button { background: #8ee0b5; color: #09271d; }
+[data-theme="dark"] .primary-button:hover { background: #a6ecc8; }
+[data-theme="dark"] .brand-accent, [data-theme="dark"] .hero h1 span { color: #8ee0b5; }
+[data-theme="dark"] .hero-visual { border-color: var(--line); background: var(--surface); }
+[data-theme="dark"] .visual-caption { background: var(--surface); }
+[data-theme="dark"] .hero-visual img { opacity: .9; }
+[data-theme="dark"] .outline-button, [data-theme="dark"] .secondary-button { border-color: var(--line); }
+[data-theme="dark"] .outline-button:hover, [data-theme="dark"] .secondary-button:hover { background: #214538; }
+[data-theme="dark"] input, [data-theme="dark"] textarea, [data-theme="dark"] select { background: #0e201c; border-color: #416657; }
+[data-theme="dark"] .fresh { color: #b0efcc; background: #214637; }
+[data-theme="dark"] .soon { color: #ffdb8c; background: #493d20; }
+[data-theme="dark"] .check, [data-theme="dark"] .error-message { color: #ffbdb4; background: #4b2c2a; }
+[data-theme="dark"] .safety-notice { background: #3a3321; }
+[data-theme="dark"] .safety-notice p { color: #ebd9a9; }
+[data-theme="dark"] .step-card, [data-theme="dark"] .storage-note { border-color: var(--line); }
+[data-theme="dark"] .benefits svg, [data-theme="dark"] .closing > svg, [data-theme="dark"] .step-top span { color: #8ee0b5; }
+[data-theme="dark"] :focus-visible { outline-color: #8ee0b5; }
+@media (max-width: 900px) {
+  .nav-content { flex-wrap: wrap; padding-block: 14px; }
+  .nav-actions { flex: 1; justify-content: flex-end; gap: 14px; }
+}
+@media (max-width: 600px) {
+  .nav-content { justify-content: space-between; }
+  .nav-actions { flex-basis: 100%; justify-content: space-between; gap: 8px; }
+  .nav-actions nav { width: auto; gap: 14px; }
+  .utility-actions { gap: 6px; }
+}
+@media print {
+  :root[data-theme="dark"] { color-scheme: light; --canvas: #fff; --panel: #fff; --ink: #000; --muted: #333; --forest: #155b36; }
+  [data-theme="dark"] .print-label .brand, [data-theme="dark"] .print-label .brand-accent { color: #000; }
+  [data-theme="dark"] .brand-mark svg + svg { background: #fff; }
+}
+
+.page-back { padding-top: 20px; padding-bottom: 4px; }
+.page-back .back-button { background: transparent; border-color: transparent; padding-inline: 8px 12px; }
+.page-back .back-button:hover { background: var(--surface); }
+.page-back + .page-section { padding-top: 24px; }
+@media print { .page-back { display: none !important; } }
+
+/* Gentle botanical gradients; text and QR surfaces retain clear contrast. */
+:root {
+  --page-gradient: radial-gradient(ellipse at 95% 0%, #e4f3db 0%, transparent 48%), linear-gradient(145deg, #fbfcf8 15%, #eef7ef 65%, #f8fbf3 100%);
+  --band-gradient: linear-gradient(115deg, #e6f0dc, #eff6e9 52%, #e3f1e9);
+  --panel-gradient: linear-gradient(145deg, #fff 20%, #f5faf2 100%);
+  --action-gradient: linear-gradient(115deg, #155b36, #257c4d);
+  --action-hover-gradient: linear-gradient(115deg, #10472a, #1c683e);
+}
+:root[data-theme="dark"] {
+  --page-gradient: radial-gradient(ellipse at 95% 0%, #173e32 0%, transparent 48%), linear-gradient(145deg, #0b1716 15%, #10241e 65%, #0b1b1a 100%);
+  --band-gradient: linear-gradient(115deg, #142b23, #1a392d 52%, #13312c);
+  --panel-gradient: linear-gradient(145deg, #192f29, #11241f);
+  --action-gradient: linear-gradient(115deg, #8ee0b5, #b7e89c);
+  --action-hover-gradient: linear-gradient(115deg, #a3ecc6, #c6f0ae);
+}
+@media screen {
+  body { background: var(--page-gradient); background-attachment: fixed; }
+  .hero { background: transparent; }
+  .navbar { background: var(--page-gradient); background-attachment: fixed; }
+  .brand-mark svg + svg { background: transparent; }
+  .benefit-band, .status-section { background: var(--band-gradient); }
+  .details-background { background: transparent; }
+  .food-form, .food-card, .details-card, .message-card { background: var(--panel-gradient); }
+  .visual-caption, [data-theme="dark"] .visual-caption { background: var(--band-gradient); }
+  .primary-button, [data-theme="dark"] .primary-button { background: var(--action-gradient); }
+  .primary-button:hover, [data-theme="dark"] .primary-button:hover { background: var(--action-hover-gradient); }
 }
