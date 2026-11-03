@@ -1,0 +1,25 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function organizer() {
+      return request.auth != null && exists(/databases/$(database)/documents/organizers/$(request.auth.uid));
+    }
+    match /foods/{foodId} {
+      allow read: if true;
+      allow create: if organizer()
+        && request.resource.data.keys().hasAll(['name', 'storedDate', 'recommendedDays', 'createdAt'])
+        && request.resource.data.keys().hasOnly(['name', 'storedDate', 'recommendedDays', 'notes', 'createdAt'])
+        && request.resource.data.name is string
+        && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
+        && request.resource.data.storedDate is string
+        && request.resource.data.storedDate.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && request.resource.data.recommendedDays is int
+        && request.resource.data.recommendedDays >= 1 && request.resource.data.recommendedDays <= 365
+        && (!('notes' in request.resource.data) || (request.resource.data.notes is string && request.resource.data.notes.size() <= 2000))
+        && request.resource.data.createdAt == request.time;
+      allow update, delete: if false;
+    }
+    // Provision organizer documents using the Firebase console/Admin SDK only.
+    match /organizers/{uid} { allow read, write: if false; }
+  }
+}
