@@ -9,7 +9,10 @@ export default function BackButton() {
 
   function goBack() {
     // Direct QR visits may have no previous page within this app.
-    if (typeof window.history.state?.idx === "number" && window.history.state.idx > 0) {
+    if (
+      typeof window.history.state?.idx === "number" &&
+      window.history.state.idx > 0
+    ) {
       void navigate(-1);
     } else {
       void navigate("/");
@@ -18,7 +21,12 @@ export default function BackButton() {
 
   return (
     <div className="container page-back">
-      <button type="button" className="utility-button back-button" onClick={goBack} aria-label="Go back to the previous page">
+      <button
+        type="button"
+        className="utility-button back-button"
+        onClick={goBack}
+        aria-label="Go back to the previous page"
+      >
         <ArrowLeft size={18} aria-hidden="true" />
         <span>Back</span>
       </button>

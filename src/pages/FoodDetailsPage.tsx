@@ -18,7 +18,7 @@ import {
 const FoodDetailsPage = () => {
   const { id } = useParams();
   const today = useToday();
-  const [error,setError] = useState("");
+  const [error, setError] = useState("");
 
   const [food, setFood] = useState<Food | null>(null);
   const [loading, setLoading] = useState(true);
@@ -27,7 +27,10 @@ const FoodDetailsPage = () => {
   useEffect(() => {
     let active = true;
     const loadFood = async () => {
-      setLoading(true);setError("");setFood(null);setNotFound(false);
+      setLoading(true);
+      setError("");
+      setFood(null);
+      setNotFound(false);
       if (!id) {
         setNotFound(true);
         setLoading(false);
@@ -51,20 +54,38 @@ const FoodDetailsPage = () => {
     };
 
     void loadFood();
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [id]);
 
   if (loading) {
     return (
       <section className="page-section">
         <div className="container small-container">
-          <div className="message-card" role="status">Loading food…</div>
+          <div className="message-card" role="status">
+            Loading food…
+          </div>
         </div>
       </section>
     );
   }
 
-  if (error) return <section className="page-section container"><div className="message-card" role="alert"><h1>Couldn’t load this food</h1><p>{error}</p><button className="button primary-button" onClick={()=>window.location.reload()}>Try again</button></div></section>;
+  if (error)
+    return (
+      <section className="page-section container">
+        <div className="message-card" role="alert">
+          <h1>Couldn’t load this food</h1>
+          <p>{error}</p>
+          <button
+            className="button primary-button"
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </button>
+        </div>
+      </section>
+    );
 
   if (notFound || !food) {
     return (
@@ -83,13 +104,19 @@ const FoodDetailsPage = () => {
     );
   }
 
-  const status = getFreshnessStatus(food.storedDate, food.recommendedDays, today);
+  const status = getFreshnessStatus(
+    food.storedDate,
+    food.recommendedDays,
+    today,
+  );
 
-  const daysStored = getDaysStored(food.storedDate,today);
+  const daysStored = getDaysStored(food.storedDate, today);
 
-  const remainingDays = getRemainingDays(food.storedDate, food.recommendedDays, today);
-
-
+  const remainingDays = getRemainingDays(
+    food.storedDate,
+    food.recommendedDays,
+    today,
+  );
 
   const statusMessage =
     status === "Fresh"
@@ -119,9 +146,7 @@ const FoodDetailsPage = () => {
           <div className="details-grid">
             <div>
               <span>Date Stored</span>
-              <strong>
-                {formatStoredDate(food.storedDate)}
-              </strong>
+              <strong>{formatStoredDate(food.storedDate)}</strong>
             </div>
 
             <div>
@@ -160,7 +185,8 @@ const FoodDetailsPage = () => {
             <strong>Important</strong>
             <p>
               FreshCheck provides storage guidance only. Always check the
-              appearance, smell, storage conditions, and condition of food before consuming it.
+              appearance, smell, storage conditions, and condition of food
+              before consuming it.
             </p>
           </div>
         </div>

@@ -6,19 +6,25 @@
     <script>
       // Apply the saved preference before paint; use the device theme on first visit.
       try {
-        const savedTheme = localStorage.getItem('freshcheck-theme');
-        const dark = savedTheme === 'dark' || (savedTheme !== 'light' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        const savedTheme = localStorage.getItem("freshcheck-theme");
+        const dark =
+          savedTheme === "dark" ||
+          (savedTheme !== "light" &&
+            window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
       } catch {
-        const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-        document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+        const dark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = dark ? "dark" : "light";
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
       }
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#155b36" />
-    <meta name="description" content="Scan It, Track It, Keep It Fresh. QR labels and clear food storage guidance from FreshCheck." />
+    <meta
+      name="description"
+      content="Scan It, Track It, Keep It Fresh. QR labels and clear food storage guidance from FreshCheck."
+    />
     <title>FreshCheck — Keep It Fresh</title>
   </head>
   <body>

@@ -1,25 +1,48 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    function organizer() {
-      return request.auth != null && exists(/databases/$(database)/documents/organizers/$(request.auth.uid));
+    function signedIn() { return request.auth != null; }
+    function validFood() {
+      let food = request.resource.data;
+      return food.keys().hasAll(['ownerId', 'name', 'storedDate', 'recommendedDays', 'createdAt'])
+        && food.keys().hasOnly(['ownerId', 'name', 'storedDate', 'recommendedDays', 'notes', 'createdAt'])
+        && food.ownerId is string && food.ownerId == request.auth.uid
+        && food.name is string && food.name.size() > 0 && food.name.size() <= 100
+        && food.storedDate is string && food.storedDate.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
+        && food.recommendedDays is int && food.recommendedDays >= 1 && food.recommendedDays <= 365
+        && (!('notes' in food) || (food.notes is string && food.notes.size() <= 2000))
+        && food.createdAt == request.time;
     }
     match /foods/{foodId} {
-      allow read: if true;
-      allow create: if organizer()
-        && request.resource.data.keys().hasAll(['name', 'storedDate', 'recommendedDays', 'createdAt'])
-        && request.resource.data.keys().hasOnly(['name', 'storedDate', 'recommendedDays', 'notes', 'createdAt'])
-        && request.resource.data.name is string
-        && request.resource.data.name.size() > 0 && request.resource.data.name.size() <= 100
-        && request.resource.data.storedDate is string
-        && request.resource.data.storedDate.matches('^[0-9]{4}-[0-9]{2}-[0-9]{2}$')
-        && request.resource.data.recommendedDays is int
-        && request.resource.data.recommendedDays >= 1 && request.resource.data.recommendedDays <= 365
-        && (!('notes' in request.resource.data) || (request.resource.data.notes is string && request.resource.data.notes.size() <= 2000))
-        && request.resource.data.createdAt == request.time;
-      allow update, delete: if false;
+      // Individual QR lookup, including legacy foods, stays public.
+      allow get: if true;
+      // Queries must prove ownerId == the caller's UID. Rules are not filters.
+      allow list: if signedIn() && resource.data.ownerId == request.auth.uid;
+      allow create: if signedIn() && validFood();
+      // Ownership stays immutable. Only an existing owner may delete their food.
+      allow update: if false;
+      allow delete: if signedIn() && resource.data.ownerId == request.auth.uid;
     }
-    // Provision organizer documents using the Firebase console/Admin SDK only.
+    function validProfile(uid) {
+      let profile = request.resource.data;
+      return profile.keys().hasAll(['uid', 'displayName', 'email', 'createdAt'])
+        && profile.keys().hasOnly(['uid', 'displayName', 'email', 'createdAt'])
+        && profile.uid == uid
+        && profile.displayName is string && profile.displayName.size() > 0 && profile.displayName.size() <= 100
+        && profile.email is string && profile.email == request.auth.token.email
+        && profile.email.size() <= 254;
+    }
+    match /users/{uid} {
+      allow get: if signedIn() && request.auth.uid == uid;
+      allow list: if false;
+      allow create: if signedIn() && request.auth.uid == uid && validProfile(uid)
+        && request.resource.data.createdAt == request.time;
+      allow update: if signedIn() && request.auth.uid == uid && validProfile(uid)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false;
+    }
+    // Membership is preserved, but grants no special client privileges in this version.
     match /organizers/{uid} { allow read, write: if false; }
+    match /{document=**} { allow read, write: if false; }
   }
 }

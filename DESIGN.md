@@ -1,6 +1,7 @@
 # FreshCheck design system
 
 ## Philosophy and brand
+
 FreshCheck makes the contents of a container understandable in seconds. Calm, practical, food-oriented design; clear dates and time-based guidance take precedence over decoration. Primary slogan: “Scan It, Track It, Keep It Fresh.” Supporting message: “Less Waste, More Freshness.”
 
 This document follows the plain Markdown design-system methodology described at https://github.com/voltagent/awesome-design-md: explicit visual principles, reusable tokens, component rules, and implementation constraints. It does not copy another brand’s website.
@@ -8,6 +9,7 @@ This document follows the plain Markdown design-system methodology described at 
 The reference is a poster, not a standalone logo. `src/components/Brand.tsx` uses an original text treatment with Lucide leaf/check icons. Replace this component with an accessible local transparent SVG/PNG when approved artwork becomes available. Do not crop the poster into a navbar logo. `src/assets/food-containers.svg` is a lightweight, original code-native illustration inspired by the exhibition containers. Its label motifs are decorative, not scannable QR codes.
 
 ## Tokens
+
 - Forest/action: `--forest: #155b36`; primary text `--ink: #19392b`.
 - Supporting green: `#46782b`; wordmark accent `#4e7b26`.
 - Botanical accent: `--lime: #bde16b`; never use as small text on white.
@@ -20,16 +22,19 @@ The reference is a poster, not a standalone logo. `src/components/Brand.tsx` use
 - No elevation by default. Prefer a visible border and section background to shadows.
 
 ## Typography and rhythm
+
 Use the local system sans-serif stack; no essential remote font. Body 14–17px, line-height 1.7; supporting labels 12px. Hero 40–64px, page titles 34–52px, section headings 27–38px. Headings use restrained negative tracking and 1.06–1.14 line-height. Uppercase eyebrows use 11px with 1.7px tracking, never paragraphs.
 
 Spacing follows a roughly 4px base: 8, 12, 16, 20, 24, 32, 40, 56, 64, 72. Container max 1120px; gutters 24px desktop, 16px mobile. Narrow forms max 720px.
 
 ## Layout, surfaces, navigation
+
 Desktop hero: two columns, copy before food illustration. Benefits are an inline band. How-it-works articles use top rules rather than floating cards. Forms and QR details receive bounded white surfaces for readability. Foods are two columns on desktop, one on mobile. Detail view has a flexible content column and 320px QR sidebar; below 700px, details come first and QR follows.
 
 Navbar contains the wordmark and Home, Foods, Add Food links. Active routes have color and underline. At 375px and below navigation wraps into a second row without hiding actions. Footer remains minimal. Do not make every component a floating card.
 
 ## Components and states
+
 Buttons have 46px minimum height, explicit text, optional 16–18px icons, 8px corners. Primary uses forest/white; secondary uses outline. Hover darkens or changes the surface. Focus uses a visible 3px green outline with 4px offset. Disabled saving controls show a busy label and reduced opacity.
 
 Forms use persistent labels, required attributes, browser-native date/number validation and shared service validation. Inputs are at least 46px tall, full width, with visible borders. Notes resize vertically. Authentication is a small separate organizer panel, not a prerequisite for public reading. Show friendly errors near the action with role=alert. Loading is communicated in text with role=status.
@@ -37,23 +42,36 @@ Forms use persistent labels, required attributes, browser-native date/number val
 Status badges always combine icon + exact state label + color. Exactly three primary states exist. Never interpret green as proof that food is safe. State guidance and disclaimer must be visible on food detail pages.
 
 ## QR presentation and printing
+
 QR codes are black on white with four-module margins; never place artwork over them. Render the downloadable canvas at 720px, display at up to 240px. The print label contains FreshCheck, food name, QR, and “Scan to check freshness.” Print CSS hides navigation, controls and calculated guidance. Never permanently print the calculated status. PNG downloads contain the QR alone; print produces the branded label. Long URLs wrap. Warn when labels encode localhost.
 
 ## Responsive and accessibility rules
+
 Target widths: 320, 375, 390, 430, 768, 1024, 1440. Never require horizontal scrolling. Allow food names and notes to wrap. Keep QR proportional. Preserve source order: title/status, storage information, disclaimer, then QR. At narrow widths stack action buttons and date metrics as needed.
 
 Use semantic header/nav/main/footer, native form controls, associated labels, visible keyboard focus, a skip link, and text alternatives. Decorative icons are hidden where the adjacent label supplies meaning. All status meaning must survive monochrome rendering. Respect reduced-motion preferences; avoid essential motion. Use readable dark text on pale surfaces. Native semantic HTML takes priority over custom ARIA.
 
 ## Do / don't
+
 Do use calm green, warm neutrals, editorial spacing, clear actions, and factual date guidance. Do use local assets. Do expose useful loading, empty and error states. Don't use excessive gradients, fake fixed food statuses, AI predictions, NFC, enormous shadows, remote branding assets, or claims of guaranteed food safety.
 
 ## Dark mode and back navigation
+
 The navbar theme button switches between light and dark, with an accessible action label. On first load use the device color scheme; an explicit choice persists under `freshcheck-theme` in localStorage. Apply the preference before paint in index.html to avoid a light flash. If storage is blocked, the toggle still works for the current page. Dark tokens: canvas #111c16, panel #1a2a20, surface #203226, text #edf4e9, muted #b4c5b7, border #3c5140, action #a8d981 with dark action text. Status text/background pairs are adapted for contrast. QR canvas backgrounds and printed labels stay white. Theme and Back buttons have 44px touch targets. Back sits at the left above page content, with an arrow and visible label, and is hidden on the landing route (/). Back uses React Router history when available; direct entries fall back to Home.
 
-
 ## Refined theme gradients
+
 Light mode uses a warm ivory-to-sage page and a pale botanical hero gradient. Dark mode uses deep teal (#0b1716), emerald surfaces (#142724 / #18332c), soft mint actions (#8ee0b5), and muted sage text (#adc8bd). Broad radial glows blend into gentle diagonal gradients on page/hero backgrounds; section bands and content surfaces use restrained linear gradients. Primary actions use forest-to-emerald in light mode and mint-to-lime in dark mode. Gradient rules apply only to screens: QR panels retain solid backgrounds and printing retains white paper. Avoid animated gradients or applying them to body text, inputs, and QR canvases.
 
 Header and hero share the page-level gradient in both themes. Keep their backgrounds transparent and omit the header divider so the top of each page forms one continuous surface. The shared gradient is anchored to the viewport; do not restart a separate gradient at the hero boundary.
 
 The navbar is sticky at top: 0 with z-index: 50. It paints the same viewport-anchored page gradient to blend with the page while preventing scrolled content from showing through navigation.
+
+## Multi-user accounts
+
+Signed-out navigation shows Home, Sign In, and Create Account; signed-in navigation shows Home, My Foods, Add Food, a compact native account disclosure, Sign Out, and the theme action. Auth loading displays a stable account placeholder. Account identity is the current viewer's name/email, never the food owner's identity from a QR record. Authentication pages reuse the botanical layout, theme tokens, real labels, 46px controls, visible errors and responsive two-column-to-single-column layout. Registration asks for name, email, password and confirmation. Password recovery uses a neutral confirmation message. Notes explicitly warn that anyone with the QR link may see them. Protect personal management pages while keeping the QR result immediate and public. Keep the sticky blended header, left-side non-home Back button, and white print/QR surfaces.
+
+My Profile (/profile) uses two stacked themed forms for display name and password changes. Display the current email as read-only text. Require current-password reauthentication for password changes, use password autocomplete hints, and show separate per-form success/error feedback. Disable both forms while an account change is pending; clear password inputs after success.
+
+Account changes: omit all password-recovery links/screens; users can change passwords from authenticated My Profile with their current password. Sign Out and Delete Food use a red danger treatment in light and dark modes. My Foods deletion requires explicit confirmation naming the food and explaining that its QR link stops resolving; cancellation preserves the item. Show pending/error feedback and remove the card only after confirmed server success.
+
